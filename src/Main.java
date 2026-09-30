@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -47,13 +48,27 @@ public class Main {
         System.out.println();
         financeManager.printSortedTransactions(byDate);
 
+        Predicate<Transaction> dateIsBefore =
+                transaction -> transaction.getDate().isBefore(LocalDate.of(2026, 9, 2));
         System.out.println();
-        financeManager.printFilteredByDateTransactions(LocalDate.of(2026, 9, 3), 0);
-
-        System.out.println();
-        financeManager.printFilteredByDateTransactions(LocalDate.of(2026, 9, 10), -1);
+        financeManager.printFilteredTransactions(dateIsBefore);
 
         System.out.println();
         financeManager.printSortedTransactions(byCategory);
+
+        Predicate<Transaction> isExpense =
+                transaction -> transaction.getType() == TransactionType.EXPENSE;
+        System.out.println();
+        financeManager.printFilteredTransactions(isExpense);
+
+        Predicate<Transaction> isMoreThan1000 =
+                transaction -> transaction.getAmount() > 1000;
+        System.out.println();
+        financeManager.printFilteredTransactions(isMoreThan1000);
+
+        Predicate<Transaction> isCategoryFood =
+                transaction -> transaction.getCategory() == Category.FOOD;
+        System.out.println();
+        financeManager.printFilteredTransactions(isCategoryFood);
     }
 }
