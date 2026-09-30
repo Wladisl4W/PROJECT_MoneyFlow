@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class FinanceManager {
@@ -16,6 +17,16 @@ public class FinanceManager {
 
 
 
+    //sorts
+
+    public List<Transaction> sortTransactions(Comparator<Transaction> comparator) {
+        List<Transaction> sorted = new ArrayList<>(transactions);
+        sorted.sort(comparator);
+        return sorted;
+    }
+
+
+
     //prints
 
     public void printTransactions() {
@@ -29,6 +40,12 @@ public class FinanceManager {
             if (transaction.getType() == type) {
                 System.out.println(transaction);
             }
+        }
+    }
+
+    public void printSortedTransactions(Comparator<Transaction> comparator) {
+        for(Transaction t : this.sortTransactions(comparator)) {
+            System.out.println(t);
         }
     }
 
