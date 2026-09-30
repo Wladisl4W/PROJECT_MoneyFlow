@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +28,7 @@ public class FinanceManager {
 
 
 
+
     //prints
 
     public void printTransactions() {
@@ -45,6 +47,12 @@ public class FinanceManager {
 
     public void printSortedTransactions(Comparator<Transaction> comparator) {
         for(Transaction t : this.sortTransactions(comparator)) {
+            System.out.println(t);
+        }
+    }
+
+    public void printFilteredByDateTransactions(LocalDate date, int i) {
+        for(Transaction t : this.getTransactionsByDate(date, i)) {
             System.out.println(t);
         }
     }
@@ -69,4 +77,29 @@ public class FinanceManager {
         return sum;
     }
 
+    public List<Transaction> getTransactionsByDate(LocalDate date, int i) {
+        List<Transaction> filtered = new ArrayList<>();
+        for (Transaction transaction : transactions) {
+            switch (i)
+            {
+                case -1:
+                    if(transaction.getDate().isBefore(date)) {
+                        filtered.add(transaction);
+                    }
+                    break;
+                case 0:
+                    if(transaction.getDate().isEqual(date)) {
+                        filtered.add(transaction);
+                    }
+                    break;
+                case 1:
+                    if(transaction.getDate().isAfter(date)) {
+                        filtered.add(transaction);
+                    }
+                    break;
+            }
+
+        }
+        return filtered;
+    }
 }

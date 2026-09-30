@@ -1,17 +1,17 @@
+import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         FinanceManager financeManager = new FinanceManager();
 
-        Transaction t1 = new Transaction("Зарплата", 50000, TransactionType.INCOME, Category.SALARY);
-        Transaction t2 = new Transaction("Молоко", 100, TransactionType.EXPENSE, Category.FOOD);
-        Transaction t3 = new Transaction("Такси", 500, TransactionType.EXPENSE, Category.TRANSPORT);
+        Transaction transaction1 = new Transaction("Зарплата", 50000, TransactionType.INCOME, Category.SALARY, LocalDate.of(2026, 9, 1));
+        Transaction transaction2 = new Transaction("Молоко", 100, TransactionType.EXPENSE, Category.FOOD, LocalDate.of(2026, 9, 3));
+        Transaction transaction3 = new Transaction("Такси", 500, TransactionType.EXPENSE, Category.TRANSPORT, LocalDate.of(2026, 9, 2));
 
-        financeManager.addTransaction(t1);
-        financeManager.addTransaction(t2);
-        financeManager.addTransaction(t3);
+        financeManager.addTransaction(transaction1);
+        financeManager.addTransaction(transaction2);
+        financeManager.addTransaction(transaction3);
 
         System.out.println(financeManager.getBalance());
 
@@ -23,19 +23,17 @@ public class Main {
 
 
 
-        Comparator<Transaction> byDescription = new Comparator<Transaction>() {
-            @Override
-            public int compare(Transaction t1, Transaction t2) {
-                return String.CASE_INSENSITIVE_ORDER.compare(t1.getDescription(), t2.getDescription());
-            }
-        };
+        Comparator<Transaction> byDescription =
+                (t1, t2) -> String.CASE_INSENSITIVE_ORDER.compare(t1.getDescription(), t2.getDescription());
 
-        Comparator<Transaction> byAmount = new Comparator<Transaction>() {
-            @Override
-            public int compare(Transaction t1, Transaction t2) {
-                return Integer.compare(t1.getAmount(), t2.getAmount());
-            }
-        };
+        Comparator<Transaction> byAmount =
+                Comparator.comparingInt(Transaction::getAmount);
+
+        Comparator<Transaction> byDate =
+                Comparator.comparing(Transaction::getDate);
+
+        Comparator<Transaction> byCategory =
+                Comparator.comparing(Transaction::getCategory);
 
         System.out.println();
         financeManager.printSortedTransactions(byDescription);
@@ -45,5 +43,17 @@ public class Main {
 
         System.out.println();
         financeManager.printSortedTransactions(byAmount.reversed());
+
+        System.out.println();
+        financeManager.printSortedTransactions(byDate);
+
+        System.out.println();
+        financeManager.printFilteredByDateTransactions(LocalDate.of(2026, 9, 3), 0);
+
+        System.out.println();
+        financeManager.printFilteredByDateTransactions(LocalDate.of(2026, 9, 10), -1);
+
+        System.out.println();
+        financeManager.printSortedTransactions(byCategory);
     }
 }
