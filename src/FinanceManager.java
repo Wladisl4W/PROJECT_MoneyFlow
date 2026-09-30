@@ -10,8 +10,8 @@ public class FinanceManager {
         transactions.add(transaction);
     }
 
-    public void removeTransaction(Transaction transaction) {
-        transactions.remove(transaction);
+    public void removeTransaction(int id) {
+        transactions.remove(id);
     }
 
     public void printTransactions() {
@@ -27,7 +27,11 @@ public class FinanceManager {
     public int getBalance() {
         int sum = 0;
         for (Transaction transaction : transactions) {
-            sum += transaction.getAmount();
+            if (TransactionType.INCOME == transaction.getType()) {
+                sum += transaction.getAmount();
+            } else {
+                sum -= transaction.getAmount();
+            }
         }
         return sum;
     }

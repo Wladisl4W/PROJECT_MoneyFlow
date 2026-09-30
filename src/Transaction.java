@@ -1,10 +1,12 @@
 public class Transaction {
     private final String description;
     private final int amount;
+    private final TransactionType type;
 
-    public Transaction(String description, int amount) {
+    public Transaction(String description, int amount, TransactionType type) {
         this.description = description;
-        this.amount = amount;
+        this.amount = Math.abs(amount);
+        this.type = type;
     }
 
 
@@ -19,7 +21,9 @@ public class Transaction {
         return amount;
     }
 
-
+    public TransactionType getType() {
+        return type;
+    }
 
     //toString
 
@@ -28,6 +32,7 @@ public class Transaction {
         return "Transaction{" +
                 "description:" + description +
                 ", amount:" + amount +
+                ", type:" + type +
                 "}";
     }
 }
