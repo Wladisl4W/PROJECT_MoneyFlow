@@ -1,4 +1,7 @@
-package PACKAGE_NAME;
-
-public class Category {
+public enum Category {
+    SALARY,
+    FOOD,
+    TRANSPORT,
+    ENTERTAINMENT,
+    OTHER
 }

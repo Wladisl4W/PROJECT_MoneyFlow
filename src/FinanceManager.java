@@ -10,15 +10,31 @@ public class FinanceManager {
         transactions.add(transaction);
     }
 
-    public void removeTransaction(int id) {
-        transactions.remove(id);
+    public void removeTransaction(Transaction transaction) {
+        transactions.remove(transaction);
     }
+
+
+
+    //prints
 
     public void printTransactions() {
         for (Transaction transaction : transactions) {
             System.out.println(transaction);
         }
     }
+
+    public void printTransactions(TransactionType type) {
+        for (Transaction transaction : transactions) {
+            if (transaction.getType() == type) {
+                System.out.println(transaction);
+            }
+        }
+    }
+
+
+
+    //getters
 
     public int getTransactionCount() {
         return transactions.size();
