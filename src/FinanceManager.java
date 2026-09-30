@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -33,9 +32,7 @@ public class FinanceManager {
     //prints
 
     public void printTransactions() {
-        for (Transaction transaction : transactions) {
-            System.out.println(transaction);
-        }
+        transactions.forEach(System.out::println);
     }
 
     public void printTransactions(TransactionType type) {
@@ -52,7 +49,8 @@ public class FinanceManager {
         }
     }
 
-    public void printFilteredTransactions(Predicate<Transaction> transactionPredicate) {
+    public void printFilteredTransactions(
+            Predicate<Transaction> transactionPredicate) {
         for(Transaction t : this.getFilteredTransactions(transactionPredicate)) {
             System.out.println(t);
         }
@@ -78,13 +76,23 @@ public class FinanceManager {
         return sum;
     }
 
-    public List<Transaction> getFilteredTransactions(Predicate<Transaction> transactionPredicate) {
-        List<Transaction> filtered = new ArrayList<>();
-        for (Transaction transaction : transactions) {
-            if (transactionPredicate.test(transaction)) {
-                filtered.add(transaction);
-            }
-        }
-        return filtered;
+    public List<Transaction> getFilteredTransactions(
+            Predicate<Transaction> transactionPredicate) {
+        return transactions.stream().filter(transactionPredicate).toList();
+    }
+
+    public List<String> getTransactionsDescription() {
+        return transactions.stream().map(Transaction::getDescription).toList();
+    }
+
+    public List<String> getTransactionsDescriptionExpense() {
+        return transactions.stream()
+                .filter(t -> t.getType() == TransactionType.EXPENSE)
+                .map(Transaction::getDescription)
+                .toList();
+    }
+
+    public List<Integer> getTransactionsAmount() {
+        return transactions.stream().map(Transaction::getAmount).toList();
     }
 }
