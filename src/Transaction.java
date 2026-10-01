@@ -1,15 +1,17 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class Transaction {
     private final String description;
-    private final int amount;
+    private final BigDecimal amount;
     private final TransactionType type;
     private final Category category;
     private final LocalDate date;
 
-    public Transaction(String description, int amount, TransactionType type, Category category, LocalDate date) {
+    public Transaction(String description, BigDecimal amount, TransactionType type, Category category, LocalDate date) {
         this.description = description;
-        this.amount = Math.abs(amount);
+        this.amount = amount.abs().setScale(2, RoundingMode.HALF_UP);
         this.type = type;
         this.category = category;
         this.date = date;
@@ -23,7 +25,7 @@ public class Transaction {
         return description;
     }
 
-    public int getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 

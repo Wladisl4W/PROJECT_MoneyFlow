@@ -1,14 +1,36 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
         FinanceManager financeManager = new FinanceManager();
 
-        Transaction transaction1 = new Transaction("Зарплата", 50000, TransactionType.INCOME, Category.SALARY, LocalDate.of(2026, 9, 1));
-        Transaction transaction2 = new Transaction("Молоко", 100, TransactionType.EXPENSE, Category.FOOD, LocalDate.of(2026, 9, 3));
-        Transaction transaction3 = new Transaction("Такси", 500, TransactionType.EXPENSE, Category.TRANSPORT, LocalDate.of(2026, 9, 2));
+        Transaction transaction1 =
+                new Transaction(
+                        "Зарплата",
+                        new BigDecimal("50000"),
+                        TransactionType.INCOME,
+                        Category.SALARY,
+                        LocalDate.of(2026, 9, 1));
+        Transaction transaction2 =
+                new Transaction(
+                        "Молоко",
+                        new BigDecimal("100"),
+                        TransactionType.EXPENSE,
+                        Category.FOOD,
+                        LocalDate.of(2026, 9, 3));
+        Transaction transaction3 =
+                new Transaction(
+                        "Такси",
+                        new BigDecimal("500"),
+                        TransactionType.EXPENSE,
+                        Category.TRANSPORT,
+                        LocalDate.of(2026, 9, 2));
 
         financeManager.addTransaction(transaction1);
         financeManager.addTransaction(transaction2);
@@ -23,12 +45,13 @@ public class Main {
         financeManager.printTransactions(TransactionType.INCOME);
 
 
-
         Comparator<Transaction> byDescription =
-                (t1, t2) -> String.CASE_INSENSITIVE_ORDER.compare(t1.getDescription(), t2.getDescription());
+                (t1, t2) ->
+                        String.CASE_INSENSITIVE_ORDER
+                                .compare(t1.getDescription(), t2.getDescription());
 
         Comparator<Transaction> byAmount =
-                Comparator.comparingInt(Transaction::getAmount);
+                Comparator.comparing(Transaction::getAmount);
 
         Comparator<Transaction> byDate =
                 Comparator.comparing(Transaction::getDate);
@@ -49,7 +72,9 @@ public class Main {
         financeManager.printSortedTransactions(byDate);
 
         Predicate<Transaction> dateIsBefore =
-                transaction -> transaction.getDate().isBefore(LocalDate.of(2026, 9, 2));
+                transaction -> transaction
+                        .getDate()
+                        .isBefore(LocalDate.of(2026, 9, 2));
         System.out.println();
         financeManager.printFilteredTransactions(dateIsBefore);
 
@@ -57,18 +82,28 @@ public class Main {
         financeManager.printSortedTransactions(byCategory);
 
         Predicate<Transaction> isExpense =
-                transaction -> transaction.getType() == TransactionType.EXPENSE;
+                transaction -> transaction
+                        .getType() == TransactionType.EXPENSE;
         System.out.println();
         financeManager.printFilteredTransactions(isExpense);
 
         Predicate<Transaction> isMoreThan1000 =
-                transaction -> transaction.getAmount() > 1000;
+                transaction -> transaction.getAmount().compareTo(new BigDecimal(1000)) > 0;
         System.out.println();
         financeManager.printFilteredTransactions(isMoreThan1000);
 
         Predicate<Transaction> isCategoryFood =
-                transaction -> transaction.getCategory() == Category.FOOD;
+                transaction -> transaction
+                        .getCategory() == Category.FOOD;
         System.out.println();
         financeManager.printFilteredTransactions(isCategoryFood);
+
+        System.out.println();
+        BigDecimal optionalDouble = financeManager.getAvgSumOfAllTransactions();
+        System.out.println(optionalDouble);
+
+        System.out.println();
+        Map<Category, List<Transaction>> listMap = financeManager.getCategoryMap();
+        System.out.println(listMap);
     }
 }
