@@ -1,6 +1,8 @@
 import model.Category;
 import model.Transaction;
 import model.TransactionType;
+import repository.TransactionRepository;
+import service.TransactionService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +16,8 @@ import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) {
-        FinanceManager financeManager = new FinanceManager();
+        TransactionRepository transactionRepository = new TransactionRepository();
+        TransactionService transactionService = new TransactionService(transactionRepository);
 
         Transaction transaction1 =
                 new Transaction(
@@ -38,93 +41,11 @@ public class Main {
                         Category.TRANSPORT,
                         LocalDate.of(2026, 9, 2));
 
-        financeManager.addTransaction(transaction1);
-        financeManager.addTransaction(transaction2);
-        financeManager.addTransaction(transaction3);
+        transactionService.addTransaction(transaction1);
+        transactionService.addTransaction(transaction2);
+        transactionService.addTransaction(transaction3);
 
-        System.out.println(financeManager.getBalance());
+        System.out.println(transactionService.getBalance());
 
-        System.out.println();
-        financeManager.printTransactions();
-
-        System.out.println();
-        financeManager.printTransactions(TransactionType.INCOME);
-
-
-        Comparator<Transaction> byDescription =
-                (t1, t2) ->
-                        String.CASE_INSENSITIVE_ORDER
-                                .compare(t1.getDescription(), t2.getDescription());
-
-        Comparator<Transaction> byAmount =
-                Comparator.comparing(Transaction::getAmount);
-
-        Comparator<Transaction> byDate =
-                Comparator.comparing(Transaction::getDate);
-
-        Comparator<Transaction> byCategory =
-                Comparator.comparing(Transaction::getCategory);
-
-        System.out.println();
-        financeManager.printSortedTransactions(byDescription);
-
-        System.out.println();
-        financeManager.printSortedTransactions(byAmount);
-
-        System.out.println();
-        financeManager.printSortedTransactions(byAmount.reversed());
-
-        System.out.println();
-        financeManager.printSortedTransactions(byDate);
-
-        Predicate<Transaction> dateIsBefore =
-                transaction -> transaction
-                        .getDate()
-                        .isBefore(LocalDate.of(2026, 9, 2));
-        System.out.println();
-        financeManager.printFilteredTransactions(dateIsBefore);
-
-        System.out.println();
-        financeManager.printSortedTransactions(byCategory);
-
-        Predicate<Transaction> isExpense =
-                transaction -> transaction
-                        .getType() == TransactionType.EXPENSE;
-        System.out.println();
-        financeManager.printFilteredTransactions(isExpense);
-
-        Predicate<Transaction> isMoreThan1000 =
-                transaction -> transaction.getAmount().compareTo(new BigDecimal("1000.00")) > 0;
-        System.out.println();
-        financeManager.printFilteredTransactions(isMoreThan1000);
-
-        Predicate<Transaction> isCategoryFood =
-                transaction -> transaction
-                        .getCategory() == Category.FOOD;
-        System.out.println();
-        financeManager.printFilteredTransactions(isCategoryFood);
-
-        System.out.println();
-        BigDecimal optionalDouble = financeManager.getAvgSumOfAllTransactions();
-        System.out.println(optionalDouble);
-
-        System.out.println();
-        Map<Category, List<Transaction>> listMap = financeManager.getCategoryMap();
-        System.out.println(listMap);
-
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        String date = transaction1.getDate().format(formatter);
-
-        NumberFormat moneyFormat =
-                NumberFormat.getCurrencyInstance(
-                        Locale.forLanguageTag("ru-RU"));
-        String money = transaction1.getType().getSymbol() + " " +
-                moneyFormat.format(transaction1.getAmount());
-
-        System.out.println(date + " | " +
-                transaction1.getDescription() + " | " +
-                transaction1.getCategory() + " | " +
-                money);
     }
 }

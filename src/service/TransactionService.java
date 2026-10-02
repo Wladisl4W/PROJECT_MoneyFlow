@@ -5,7 +5,6 @@ import model.TransactionType;
 import repository.TransactionRepository;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 public class TransactionService {
     private final TransactionRepository repository;
