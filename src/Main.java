@@ -3,8 +3,10 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.OptionalDouble;
 import java.util.function.Predicate;
+import java.time.format.DateTimeFormatter;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,21 +15,21 @@ public class Main {
         Transaction transaction1 =
                 new Transaction(
                         "Зарплата",
-                        new BigDecimal("50000"),
+                        new BigDecimal("50000.00"),
                         TransactionType.INCOME,
                         Category.SALARY,
                         LocalDate.of(2026, 9, 1));
         Transaction transaction2 =
                 new Transaction(
                         "Молоко",
-                        new BigDecimal("100"),
+                        new BigDecimal("100.00"),
                         TransactionType.EXPENSE,
                         Category.FOOD,
                         LocalDate.of(2026, 9, 3));
         Transaction transaction3 =
                 new Transaction(
                         "Такси",
-                        new BigDecimal("500"),
+                        new BigDecimal("500.00"),
                         TransactionType.EXPENSE,
                         Category.TRANSPORT,
                         LocalDate.of(2026, 9, 2));
@@ -88,7 +90,7 @@ public class Main {
         financeManager.printFilteredTransactions(isExpense);
 
         Predicate<Transaction> isMoreThan1000 =
-                transaction -> transaction.getAmount().compareTo(new BigDecimal(1000)) > 0;
+                transaction -> transaction.getAmount().compareTo(new BigDecimal("1000.00")) > 0;
         System.out.println();
         financeManager.printFilteredTransactions(isMoreThan1000);
 
@@ -105,5 +107,20 @@ public class Main {
         System.out.println();
         Map<Category, List<Transaction>> listMap = financeManager.getCategoryMap();
         System.out.println(listMap);
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String date = transaction1.getDate().format(formatter);
+
+        NumberFormat moneyFormat =
+                NumberFormat.getCurrencyInstance(
+                        Locale.forLanguageTag("ru-RU"));
+        String money = transaction1.getType().getSymbol() + " " +
+                moneyFormat.format(transaction1.getAmount());
+
+        System.out.println(date + " | " +
+                transaction1.getDescription() + " | " +
+                transaction1.getCategory() + " | " +
+                money);
     }
 }

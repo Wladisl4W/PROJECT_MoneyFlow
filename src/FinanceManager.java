@@ -76,7 +76,7 @@ public class FinanceManager {
             if (TransactionType.INCOME == transaction.getType()) {
                 sum = sum.add(transaction.getAmount());
             } else {
-                sum = sum.add(transaction.getAmount());
+                sum = sum.subtract(transaction.getAmount());
             }
         }
         return sum;
