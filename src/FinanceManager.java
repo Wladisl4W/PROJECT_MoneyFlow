@@ -12,13 +12,6 @@ public class FinanceManager {
     private final List<Transaction> transactions = new ArrayList<>();
 
 
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
-    }
-
-    public void removeTransaction(Transaction transaction) {
-        transactions.remove(transaction);
-    }
 
     public boolean isThereATransactionBiggerThan(BigDecimal amount) {
         return transactions.stream()
