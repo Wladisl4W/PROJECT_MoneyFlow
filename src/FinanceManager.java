@@ -13,15 +13,9 @@ public class FinanceManager {
 
 
 
-    public boolean isThereATransactionBiggerThan(BigDecimal amount) {
-        return transactions.stream()
-                .anyMatch(t -> t.getAmount().compareTo(amount) > 0);
-    }
 
-    public boolean ifAllTransactionsHigherThan(BigDecimal amount) {
-        return transactions.stream()
-                .allMatch(t -> t.getAmount().compareTo(amount) > 0);
-    }
+
+
 
 
     //sorts
@@ -90,63 +84,21 @@ public class FinanceManager {
         return transactions.stream().map(Transaction::getAmount).toList();
     }
 
-    public long getExpenseCount() {
-        return transactions.stream()
-                .filter(t -> t.getType() == TransactionType.EXPENSE)
-                .count();
-    }
 
 
 
 
 
-    public BigDecimal getSumOfAllTransactions(TransactionType transactionType) {
-        return transactions.stream()
-                .filter(t -> t.getType() == transactionType)
-                .map(Transaction::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 
-    public BigDecimal getAvgSumOfAllTransactions() {
-        if (transactions.isEmpty()) {
-            return BigDecimal.ZERO;
-        }
 
-        BigDecimal sum = transactions.stream()
-                .map(Transaction::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return sum.divide(
-                BigDecimal.valueOf((transactions.size())),
-                2,
-                RoundingMode.HALF_UP
-        );
-    }
 
-    public Map<Category, List<Transaction>> getCategoryMap() {
-        return transactions.stream()
-                .collect(Collectors
-                        .groupingBy(Transaction::getCategory));
-    }
 
-    public Map<Category, BigDecimal> getCategoryExpense() {
-        return transactions.stream()
-                .filter(t -> t.getType() == TransactionType.EXPENSE)
-                .collect(Collectors
-                        .groupingBy(Transaction::getCategory,
-                                Collectors.reducing(
-                                        BigDecimal.ZERO,
-                                        Transaction::getAmount,
-                                        BigDecimal::add
-                                )));
-    }
 
-    public Map<Category, Long> getCategoryTransactionsCount() {
-        return transactions.stream()
-                .collect(Collectors
-                        .groupingBy(Transaction::getCategory,
-                                Collectors.counting()));
-    }
+
+
+
+
 
     public BigDecimal getSum() {
         return transactions.stream()
