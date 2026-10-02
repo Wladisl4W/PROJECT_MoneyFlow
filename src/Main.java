@@ -1,3 +1,7 @@
+import model.Category;
+import model.Transaction;
+import model.TransactionType;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;

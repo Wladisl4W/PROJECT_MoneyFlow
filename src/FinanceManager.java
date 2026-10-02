@@ -1,3 +1,7 @@
+import model.Category;
+import model.Transaction;
+import model.TransactionType;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;

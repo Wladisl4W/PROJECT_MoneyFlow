@@ -1,3 +1,5 @@
+package model;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -45,7 +47,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
+        return "model.Transaction{" +
                 "description:" + description +
                 ", amount:" + amount +
                 ", type:" + type +

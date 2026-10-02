@@ -1,3 +1,5 @@
+package model;
+
 public enum Category {
     SALARY,
     FOOD,
