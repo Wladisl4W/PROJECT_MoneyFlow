@@ -6,13 +6,6 @@ import service.TransactionService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
-import java.time.format.DateTimeFormatter;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) {

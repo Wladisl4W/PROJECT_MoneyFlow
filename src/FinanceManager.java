@@ -53,12 +53,7 @@ public class FinanceManager {
         }
     }
 
-    public void printFilteredTransactions(
-            Predicate<Transaction> transactionPredicate) {
-        for (Transaction t : this.getFilteredTransactions(transactionPredicate)) {
-            System.out.println(t);
-        }
-    }
+
 
 
     //getters
@@ -79,10 +74,6 @@ public class FinanceManager {
         return sum;
     }
 
-    public List<Transaction> getFilteredTransactions(
-            Predicate<Transaction> transactionPredicate) {
-        return transactions.stream().filter(transactionPredicate).toList();
-    }
 
     public List<String> getTransactionsDescription() {
         return transactions.stream().map(Transaction::getDescription).toList();
@@ -105,20 +96,9 @@ public class FinanceManager {
                 .count();
     }
 
-    public List<Transaction> getBiggestTransactions(int n) {
-        return transactions.stream().
-                sorted(Comparator
-                        .comparing(Transaction::getAmount)
-                        .reversed())
-                .limit(n)
-                .toList();
-    }
 
-    public Optional<Transaction> getFirstTransactionOfCategory(Category category) {
-        return transactions.stream()
-                .filter(t -> t.getCategory() == category)
-                .findFirst();
-    }
+
+
 
     public BigDecimal getSumOfAllTransactions(TransactionType transactionType) {
         return transactions.stream()
