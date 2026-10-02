@@ -6,11 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionRepository {
-    private List<Transaction> transactions= new ArrayList<>();
-
-    public TransactionRepository(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
+    private final List<Transaction> transactions = new ArrayList<>();
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
@@ -20,7 +16,7 @@ public class TransactionRepository {
         transactions.remove(transaction);
     }
 
-    public ArrayList<Transaction> findAll() {
+    public List<Transaction> findAll() {
         return new ArrayList<Transaction>(transactions);
     }
 }
