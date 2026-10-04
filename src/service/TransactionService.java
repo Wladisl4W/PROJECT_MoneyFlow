@@ -7,10 +7,7 @@ import repository.TransactionRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -37,12 +34,12 @@ public class TransactionService {
 
     // Checks
 
-    public boolean isThereATransactionBiggerThan(BigDecimal amount) {
+    public boolean ifAnyTransactionBiggerThan(BigDecimal amount) {
         return repository.findAll().stream()
                 .anyMatch(t -> t.getAmount().compareTo(amount) > 0);
     }
 
-    public boolean ifAllTransactionsHigherThan(BigDecimal amount) {
+    public boolean ifAllTransactionsBiggerThan(BigDecimal amount) {
         return repository.findAll().stream()
                 .allMatch(t -> t.getAmount().compareTo(amount) > 0);
     }
@@ -83,22 +80,6 @@ public class TransactionService {
                 .toList();
     }
 
-    public Optional<Transaction> getFirstTransactionOfCategory(Category category) {
-        return repository
-                .findAll()
-                .stream()
-                .filter(t -> t.getCategory() == category)
-                .findFirst();
-    }
-
-    public long getExpenseCount() {
-        return repository
-                .findAll()
-                .stream()
-                .filter(t -> t.getType() == TransactionType.EXPENSE)
-                .count();
-    }
-
     public BigDecimal getSumOfAllTransactions(TransactionType transactionType) {
         return repository
                 .findAll()
@@ -108,19 +89,25 @@ public class TransactionService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public BigDecimal getAvgOfAllTransactions() {
-        if (repository.findAll().isEmpty()) {
+    public BigDecimal getAvgOfAllTransactions(TransactionType transactionType) {
+        List<Transaction> temp =
+                repository
+                        .findAll()
+                        .stream()
+                        .filter(t -> t.getType() == transactionType)
+                        .toList();
+
+        if (temp.isEmpty()) {
             return BigDecimal.ZERO;
         }
 
-        BigDecimal sum = repository
-                .findAll()
+        BigDecimal sum = temp
                 .stream()
                 .map(Transaction::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return sum.divide(
-                BigDecimal.valueOf((repository.findAll().size())),
+                BigDecimal.valueOf((temp.size())),
                 2,
                 RoundingMode.HALF_UP
         );
@@ -149,7 +136,9 @@ public class TransactionService {
     }
 
     public Map<Category, Long> getCategoryTransactionsCount() {
-        return repository.findAll().stream()
+        return repository
+                .findAll()
+                .stream()
                 .collect(Collectors
                         .groupingBy(Transaction::getCategory,
                                 Collectors.counting()));

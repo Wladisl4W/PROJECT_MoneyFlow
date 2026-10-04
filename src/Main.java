@@ -1,6 +1,7 @@
 import model.Category;
 import model.Transaction;
 import model.TransactionType;
+import repository.InMemoryTransactionRepository;
 import repository.TransactionRepository;
 import service.TransactionService;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        TransactionRepository transactionRepository = new TransactionRepository();
+        TransactionRepository transactionRepository = new InMemoryTransactionRepository();
         TransactionService transactionService = new TransactionService(transactionRepository);
 
         Transaction transaction1 =

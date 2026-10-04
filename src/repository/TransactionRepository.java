@@ -2,21 +2,12 @@ package repository;
 
 import model.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionRepository {
-    private final List<Transaction> transactions = new ArrayList<>();
+public interface TransactionRepository {
+    public void addTransaction(Transaction transaction);
 
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
-    }
+    public void removeTransaction(Transaction transaction);
 
-    public void removeTransaction(Transaction transaction) {
-        transactions.remove(transaction);
-    }
-
-    public List<Transaction> findAll() {
-        return new ArrayList<Transaction>(transactions);
-    }
+    public List<Transaction> findAll();
 }
