@@ -5,13 +5,15 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class Transaction {
+    private final long id;
     private final String description;
     private final BigDecimal amount;
     private final TransactionType type;
     private final Category category;
     private final LocalDate date;
 
-    public Transaction(String description, BigDecimal amount, TransactionType type, Category category, LocalDate date) {
+    public Transaction(long id, String description, BigDecimal amount, TransactionType type, Category category, LocalDate date) {
+        this.id = id;
         this.description = description;
         this.amount = amount.abs().setScale(2, RoundingMode.HALF_UP);
         this.type = type;
@@ -21,7 +23,9 @@ public class Transaction {
 
 
 
-    //getters
+    // Getters
+
+    public long getId() { return id; }
 
     public String getDescription() {
         return description;
@@ -43,12 +47,15 @@ public class Transaction {
         return date;
     }
 
-    //toString
+
+
+    // ToString
 
     @Override
     public String toString() {
         return "model.Transaction{" +
-                "description:" + description +
+                "id:" + id +
+                ", description:" + description +
                 ", amount:" + amount +
                 ", type:" + type +
                 ", category:" + category +

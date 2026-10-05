@@ -4,6 +4,7 @@ import model.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InMemoryTransactionRepository implements TransactionRepository {
     private final List<Transaction> transactions = new ArrayList<>();
@@ -21,5 +22,13 @@ public class InMemoryTransactionRepository implements TransactionRepository {
     @Override
     public List<Transaction> findAll() {
         return new ArrayList<Transaction>(transactions);
+    }
+
+    @Override
+    public Optional<Transaction> findById(long id) {
+        return transactions
+                .stream()
+                .filter(t -> t.getId() == id)
+                .findFirst();
     }
 }

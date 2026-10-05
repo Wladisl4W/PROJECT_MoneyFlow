@@ -143,4 +143,8 @@ public class TransactionService {
                         .groupingBy(Transaction::getCategory,
                                 Collectors.counting()));
     }
+
+    public Optional<Transaction> getTransactionById(long id) {
+        return repository.findById(id);
+    }
 }

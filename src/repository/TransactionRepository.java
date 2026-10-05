@@ -3,11 +3,14 @@ package repository;
 import model.Transaction;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TransactionRepository {
-    public void addTransaction(Transaction transaction);
+    void addTransaction(Transaction transaction);
 
-    public void removeTransaction(Transaction transaction);
+    void removeTransaction(Transaction transaction);
 
-    public List<Transaction> findAll();
+    List<Transaction> findAll();
+
+    Optional<Transaction> findById(long id);
 }

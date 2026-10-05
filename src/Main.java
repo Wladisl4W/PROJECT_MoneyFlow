@@ -7,6 +7,7 @@ import service.TransactionService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +16,7 @@ public class Main {
 
         Transaction transaction1 =
                 new Transaction(
+                        1,
                         "Зарплата",
                         new BigDecimal("50000.00"),
                         TransactionType.INCOME,
@@ -22,6 +24,7 @@ public class Main {
                         LocalDate.of(2026, 9, 1));
         Transaction transaction2 =
                 new Transaction(
+                        2,
                         "Молоко",
                         new BigDecimal("100.00"),
                         TransactionType.EXPENSE,
@@ -29,6 +32,7 @@ public class Main {
                         LocalDate.of(2026, 9, 3));
         Transaction transaction3 =
                 new Transaction(
+                        3,
                         "Такси",
                         new BigDecimal("500.00"),
                         TransactionType.EXPENSE,
@@ -41,5 +45,14 @@ public class Main {
 
         System.out.println(transactionService.getBalance());
 
+
+
+        Optional<Transaction> test1 = transactionService.getTransactionById(2);
+
+        Optional<Transaction> test2 = transactionService.getTransactionById(100);
+
+        test1.ifPresent(System.out::println);
+
+        test2.ifPresent(System.out::println);
     }
 }
