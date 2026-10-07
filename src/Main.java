@@ -1,3 +1,4 @@
+import exception.TransactionNotFoundException;
 import model.Category;
 import model.Transaction;
 import model.TransactionType;
@@ -49,14 +50,14 @@ public class Main {
         try {
             Transaction test1 = transactionService.getTransactionById(2);
             System.out.println(test1);
-        } catch (RuntimeException e) {
+        } catch (TransactionNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
         try {
             Transaction test2 = transactionService.getTransactionById(100);
             System.out.println(test2);
-        } catch (RuntimeException e) {
+        } catch (TransactionNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
