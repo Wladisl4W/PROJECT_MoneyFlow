@@ -3,6 +3,7 @@ package model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Transaction {
     private final long id;
@@ -13,12 +14,29 @@ public class Transaction {
     private final LocalDate date;
 
     public Transaction(long id, String description, BigDecimal amount, TransactionType type, Category category, LocalDate date) {
-        this.id = id;
-        this.description = description;
-        this.amount = amount.abs().setScale(2, RoundingMode.HALF_UP);
-        this.type = type;
-        this.category = category;
-        this.date = date;
+        if (id <= 0) {
+            throw new IllegalArgumentException("id должен быть > 0!");
+        } else {
+            this.id = id;
+        }
+
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException();
+        } else {
+            this.description = description;
+        }
+
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException();
+        } else {
+            this.amount = amount.setScale(2, RoundingMode.HALF_UP);
+        }
+
+        this.type = Objects.requireNonNull(type, "Тип не может быть пустым!");
+
+        this.category = Objects.requireNonNull(category);
+
+        this.date = Objects.requireNonNull(date);
     }
 
 

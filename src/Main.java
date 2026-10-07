@@ -39,10 +39,29 @@ public class Main {
                         TransactionType.EXPENSE,
                         Category.TRANSPORT,
                         LocalDate.of(2026, 9, 2));
+        Transaction transaction4 =
+                new Transaction(
+                        2,
+                        "Кофе",
+                        new BigDecimal("200"),
+                        TransactionType.EXPENSE,
+                        Category.FOOD,
+                        LocalDate.now()
+                );
+        Transaction transaction5 =
+                new Transaction(
+                        10,
+                        "Ошибка",
+                        new BigDecimal("-200"),
+                        TransactionType.EXPENSE,
+                        Category.FOOD,
+                        LocalDate.now()
+                );
 
         transactionService.addTransaction(transaction1);
         transactionService.addTransaction(transaction2);
         transactionService.addTransaction(transaction3);
+        transactionService.addTransaction(transaction4);
 
         System.out.println(transactionService.getBalance());
 

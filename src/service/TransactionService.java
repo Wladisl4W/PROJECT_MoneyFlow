@@ -1,5 +1,6 @@
 package service;
 
+import exception.DuplicateTransactionException;
 import exception.TransactionNotFoundException;
 import model.Category;
 import model.Transaction;
@@ -24,6 +25,12 @@ public class TransactionService {
     // Basic
 
     public void addTransaction(Transaction transaction) {
+        for (Transaction tempTransaction : repository.findAll()) {
+            if (tempTransaction.getId() == transaction.getId()) {
+                throw new DuplicateTransactionException(transaction.getId());
+            }
+        }
+
         repository.addTransaction(transaction);
     }
 
