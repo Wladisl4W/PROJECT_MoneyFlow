@@ -46,13 +46,18 @@ public class Main {
         System.out.println(transactionService.getBalance());
 
 
+        try {
+            Transaction test1 = transactionService.getTransactionById(2);
+            System.out.println(test1);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
 
-        Optional<Transaction> test1 = transactionService.getTransactionById(2);
-
-        Optional<Transaction> test2 = transactionService.getTransactionById(100);
-
-        test1.ifPresent(System.out::println);
-
-        test2.ifPresent(System.out::println);
+        try {
+            Transaction test2 = transactionService.getTransactionById(100);
+            System.out.println(test2);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

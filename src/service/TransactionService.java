@@ -1,5 +1,6 @@
 package service;
 
+import exception.TransactionNotFoundException;
 import model.Category;
 import model.Transaction;
 import model.TransactionType;
@@ -45,7 +46,7 @@ public class TransactionService {
     }
 
 
-    
+
     // Getters
 
     public BigDecimal getBalance() {
@@ -144,7 +145,9 @@ public class TransactionService {
                                 Collectors.counting()));
     }
 
-    public Optional<Transaction> getTransactionById(long id) {
-        return repository.findById(id);
+    public Transaction getTransactionById(long id) {
+        return repository
+                .findById(id)
+                .orElseThrow(() -> new TransactionNotFoundException(id));
     }
 }
