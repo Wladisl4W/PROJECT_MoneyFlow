@@ -1,6 +1,6 @@
-package repository;
+package main.java.repository;
 
-import model.Transaction;
+import main.java.model.Transaction;
 
 import java.util.List;
 import java.util.Optional;

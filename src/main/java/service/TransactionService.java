@@ -1,11 +1,11 @@
-package service;
+package main.java.service;
 
-import exception.DuplicateTransactionException;
-import exception.TransactionNotFoundException;
-import model.Category;
-import model.Transaction;
-import model.TransactionType;
-import repository.TransactionRepository;
+import main.java.exception.DuplicateTransactionException;
+import main.java.exception.TransactionNotFoundException;
+import main.java.model.Category;
+import main.java.model.Transaction;
+import main.java.model.TransactionType;
+import main.java.repository.TransactionRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,10 +25,8 @@ public class TransactionService {
     // Basic
 
     public void addTransaction(Transaction transaction) {
-        for (Transaction tempTransaction : repository.findAll()) {
-            if (tempTransaction.getId() == transaction.getId()) {
-                throw new DuplicateTransactionException(transaction.getId());
-            }
+        if (repository.findById(transaction.getId()).isPresent()) {
+            throw new DuplicateTransactionException(transaction.getId());
         }
 
         repository.addTransaction(transaction);

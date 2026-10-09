@@ -1,14 +1,15 @@
-import exception.TransactionNotFoundException;
-import model.Category;
-import model.Transaction;
-import model.TransactionType;
-import repository.InMemoryTransactionRepository;
-import repository.TransactionRepository;
-import service.TransactionService;
+package main.java;
+
+import main.java.exception.TransactionNotFoundException;
+import main.java.model.Category;
+import main.java.model.Transaction;
+import main.java.model.TransactionType;
+import main.java.repository.InMemoryTransactionRepository;
+import main.java.repository.TransactionRepository;
+import main.java.service.TransactionService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
@@ -39,32 +40,12 @@ public class Main {
                         TransactionType.EXPENSE,
                         Category.TRANSPORT,
                         LocalDate.of(2026, 9, 2));
-        Transaction transaction4 =
-                new Transaction(
-                        2,
-                        "Кофе",
-                        new BigDecimal("200"),
-                        TransactionType.EXPENSE,
-                        Category.FOOD,
-                        LocalDate.now()
-                );
-        Transaction transaction5 =
-                new Transaction(
-                        10,
-                        "Ошибка",
-                        new BigDecimal("-200"),
-                        TransactionType.EXPENSE,
-                        Category.FOOD,
-                        LocalDate.now()
-                );
 
         transactionService.addTransaction(transaction1);
         transactionService.addTransaction(transaction2);
         transactionService.addTransaction(transaction3);
-        transactionService.addTransaction(transaction4);
 
         System.out.println(transactionService.getBalance());
-
 
         try {
             Transaction test1 = transactionService.getTransactionById(2);

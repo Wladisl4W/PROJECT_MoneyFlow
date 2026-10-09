@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -13,7 +13,12 @@ public class Transaction {
     private final Category category;
     private final LocalDate date;
 
-    public Transaction(long id, String description, BigDecimal amount, TransactionType type, Category category, LocalDate date) {
+    public Transaction(long id,
+                       String description,
+                       BigDecimal amount,
+                       TransactionType type,
+                       Category category,
+                       LocalDate date) {
         if (id <= 0) {
             throw new IllegalArgumentException("id должен быть > 0!");
         } else {
@@ -71,7 +76,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "model.Transaction{" +
+        return "main.java.model.Transaction{" +
                 "id:" + id +
                 ", description:" + description +
                 ", amount:" + amount +
