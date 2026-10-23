@@ -1,11 +1,11 @@
-package service;
+package io.github.wladisl4w.moneyflow.service;
 
-import exception.DuplicateTransactionException;
-import exception.TransactionNotFoundException;
-import model.Category;
-import model.Transaction;
-import model.TransactionType;
-import repository.TransactionRepository;
+import io.github.wladisl4w.moneyflow.exception.DuplicateTransactionException;
+import io.github.wladisl4w.moneyflow.exception.TransactionNotFoundException;
+import io.github.wladisl4w.moneyflow.model.Category;
+import io.github.wladisl4w.moneyflow.model.Transaction;
+import io.github.wladisl4w.moneyflow.model.TransactionType;
+import io.github.wladisl4w.moneyflow.repository.TransactionRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

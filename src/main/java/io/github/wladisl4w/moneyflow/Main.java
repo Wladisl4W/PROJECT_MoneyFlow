@@ -1,10 +1,12 @@
-import exception.TransactionNotFoundException;
-import model.Category;
-import model.Transaction;
-import model.TransactionType;
-import repository.InMemoryTransactionRepository;
-import repository.TransactionRepository;
-import service.TransactionService;
+package io.github.wladisl4w.moneyflow;
+
+import io.github.wladisl4w.moneyflow.exception.TransactionNotFoundException;
+import io.github.wladisl4w.moneyflow.model.Category;
+import io.github.wladisl4w.moneyflow.model.Transaction;
+import io.github.wladisl4w.moneyflow.model.TransactionType;
+import io.github.wladisl4w.moneyflow.repository.InMemoryTransactionRepository;
+import io.github.wladisl4w.moneyflow.repository.TransactionRepository;
+import io.github.wladisl4w.moneyflow.service.TransactionService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

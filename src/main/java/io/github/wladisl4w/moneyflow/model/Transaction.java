@@ -1,4 +1,4 @@
-package model;
+package io.github.wladisl4w.moneyflow.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -76,7 +76,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "main.java.model.Transaction{" +
+        return "main.java.io.github.wladisl4w.moneyflow.model.Transaction{" +
                 "id:" + id +
                 ", description:" + description +
                 ", amount:" + amount +

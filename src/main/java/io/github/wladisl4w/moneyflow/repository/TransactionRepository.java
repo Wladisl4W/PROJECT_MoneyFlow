@@ -1,6 +1,6 @@
-package repository;
+package io.github.wladisl4w.moneyflow.repository;
 
-import model.Transaction;
+import io.github.wladisl4w.moneyflow.model.Transaction;
 
 import java.util.List;
 import java.util.Optional;

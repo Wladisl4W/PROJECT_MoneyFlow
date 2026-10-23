@@ -1,4 +1,4 @@
-package exception;
+package io.github.wladisl4w.moneyflow.exception;
 
 public class DuplicateTransactionException extends RuntimeException {
     public DuplicateTransactionException(long id) {

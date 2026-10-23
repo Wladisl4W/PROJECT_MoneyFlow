@@ -1,4 +1,4 @@
-package model;
+package io.github.wladisl4w.moneyflow.model;
 
 public enum Category {
     SALARY,
