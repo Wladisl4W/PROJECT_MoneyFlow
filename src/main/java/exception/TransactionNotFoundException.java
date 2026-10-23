@@ -1,4 +1,4 @@
-package main.java.exception;
+package exception;
 
 public class TransactionNotFoundException extends RuntimeException {
     public TransactionNotFoundException(long id) {

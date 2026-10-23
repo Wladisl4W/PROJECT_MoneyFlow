@@ -1,12 +1,10 @@
-package main.java;
-
-import main.java.exception.TransactionNotFoundException;
-import main.java.model.Category;
-import main.java.model.Transaction;
-import main.java.model.TransactionType;
-import main.java.repository.InMemoryTransactionRepository;
-import main.java.repository.TransactionRepository;
-import main.java.service.TransactionService;
+import exception.TransactionNotFoundException;
+import model.Category;
+import model.Transaction;
+import model.TransactionType;
+import repository.InMemoryTransactionRepository;
+import repository.TransactionRepository;
+import service.TransactionService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

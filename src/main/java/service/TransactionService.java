@@ -1,11 +1,11 @@
-package main.java.service;
+package service;
 
-import main.java.exception.DuplicateTransactionException;
-import main.java.exception.TransactionNotFoundException;
-import main.java.model.Category;
-import main.java.model.Transaction;
-import main.java.model.TransactionType;
-import main.java.repository.TransactionRepository;
+import exception.DuplicateTransactionException;
+import exception.TransactionNotFoundException;
+import model.Category;
+import model.Transaction;
+import model.TransactionType;
+import repository.TransactionRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

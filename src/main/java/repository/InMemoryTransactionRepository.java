@@ -1,6 +1,6 @@
-package main.java.repository;
+package repository;
 
-import main.java.model.Transaction;
+import model.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
